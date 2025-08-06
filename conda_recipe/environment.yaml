@@ -1,0 +1,8 @@
+# file path: environment.yaml
+
+name: login_automation
+channels:
+  - defaults
+dependencies:
+  - python
+  - pip
