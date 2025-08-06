@@ -1,13 +1,11 @@
 # src/login/factory.py
 
-from playwright.sync_api import Page
+import importlib
 import logging
 from typing import Union
+from playwright.sync_api import Page
 from src.login.login import Login
-from src.login.linkedin import LoginLinkedIn
 from src.constants.constants import Constants
-from src.constants.linkedin import ConstantsLinkedIn
-from src.exceptions import LoginError
 
 
 logger = logging.getLogger(__name__)
@@ -20,18 +18,19 @@ class FactoryLogin:
         """Create a login instance for the specified platform."""
         logger.info(f"Creating login instance for platform: {platform}")
         
-        platform_key = platform.lower().strip()
-        
-        if platform_key not in is_platform_supported(platform):
-            supported = ', '.join(get_supported_platforms())
+        if FactoryLogin.is_platform_supported(platform):
+            supported = ', '.join(FactoryLogin.get_supported_platforms())
             error_msg = f"Platform '{platform}' is not supported. Supported platforms: {supported}"
             logger.error(error_msg)
-            raise LoginError(error_msg)
+            raise Exception(error_msg)
         
         try:
-            platform_config = SUPPORTED_PLATFORMS[platform_key]
-            login_class = platform_config['login_class']
-            constants_class = platform_config['constants_class']
+            platform_config = Constants.SUPPORTED_PLATFORMS[platform]
+            
+             # Dynamic import of classes from string paths
+            login_class = cls._import_class(platform_config['login_class'])
+            constants_class = cls._import_class(platform_config['constants_class'])
+            
             
             # Use provided constants or create default ones
             if constants is None:
@@ -48,8 +47,15 @@ class FactoryLogin:
         except Exception as e:
             error_msg = f"Failed to create login instance for platform '{platform}': {str(e)}"
             logger.error(error_msg)
-            raise LoginError(error_msg)
+            raise Exception(error_msg)
     
+    @staticmethod
+    def _import_class(class_path: str):
+        """Dynamically import a class from a string path."""
+        module_path, class_name = class_path.rsplit('.', 1)
+        module = importlib.import_module(module_path)
+        return getattr(module, class_name)
+
     @staticmethod
     def get_supported_platforms() -> list:
         """Get list of supported platforms."""

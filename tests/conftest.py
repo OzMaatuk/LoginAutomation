@@ -2,17 +2,12 @@
 
 import logging
 import configparser
+import os
 import pytest
 from typing import Generator
 from playwright.sync_api import sync_playwright, BrowserContext, Page
 from dotenv import load_dotenv
 from playwright.sync_api._generated import Playwright as SyncPlaywright
-from langchain_core.language_models.chat_models import BaseChatModel
-
-from src.constants.linkedin import ConstantsLinkedIn
-from src.facade import Facade
-from src.models.job import Job
-from src.search.linkedin.job_extractor import LinkedinJobExtractor
 
 
 logger = logging.getLogger("pytest")
@@ -81,7 +76,7 @@ def load_env():
     logger.info("Environment variables loaded.")
 
 @pytest.fixture(scope="session", autouse=True)
-def username(config, load_dotenv) -> str:
+def username(config, load_env) -> str:
     username = os.environ.get("USERNAME")
     if not username:
         username = config.get("user_info", "username", fallback="username")
@@ -90,7 +85,7 @@ def username(config, load_dotenv) -> str:
     return username
 
 @pytest.fixture(scope="session", autouse=True)
-def password(config, load_dotenv) -> str:
+def password(config, load_env) -> str:
     password = os.environ.get("PASSWORD")
     if not password:
         password = config.get("user_info", "password", fallback="password")

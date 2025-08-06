@@ -1,8 +1,8 @@
 # src/login/linkedin.py
 
-from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError
 import logging
-from src.login import Login
+from playwright.sync_api import Page
+from src.login.login import Login
 from src.constants.linkedin import ConstantsLinkedIn
 
 
@@ -13,7 +13,7 @@ class LoginLinkedIn(Login):
 
     def __init__(self, page: Page, constants: ConstantsLinkedIn):
         logger.info("Initializing LoginLinkedIn instance")
-        super().__init__()
+        super().__init__(page, constants)
 
     def login(self, username: str, password: str):
         logger.info("Starting login() method in LoginLinkedIn class")
