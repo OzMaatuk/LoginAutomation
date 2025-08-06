@@ -2,7 +2,7 @@
 
 import logging
 from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError
-from src.constants.constants import Constants
+from login_automation.constants.constants import Constants
 
 
 logger = logging.getLogger(__name__)

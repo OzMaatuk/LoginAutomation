@@ -1,5 +1,5 @@
 import configparser
-from src.constants.constants import (
+from login_automation.constants.constants import (
     DEFAULT_HEADLESS,
     DEFAULT_LOG_FORMAT,
     DEFAULT_LOG_LEVEL,
@@ -7,7 +7,7 @@ from src.constants.constants import (
     DEFAULT_TIMEOUT,
     SUPPORTED_PLATFORMS
 )
-from src.constants.linkedin import ConstantsLinkedIn
+from login_automation.constants.linkedin import ConstantsLinkedIn
 
 
 class AppConfig:

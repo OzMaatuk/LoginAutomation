@@ -1,6 +1,6 @@
 # src/constants/linkedin.py
 
-from src.constants.constants import Constants
+from login_automation.constants.constants import Constants
 
 class ConstantsLinkedIn(Constants):
 
@@ -8,8 +8,8 @@ class ConstantsLinkedIn(Constants):
         super().__init__()
         Constants.SUPPORTED_PLATFORMS.update({
             'linkedin': {
-                'login_class': 'src.login.linkedin.LoginLinkedIn',
-                'constants_class': 'src.constants.linkedin.ConstantsLinkedIn'
+                'login_class': 'login_automation.login.linkedin.LoginLinkedIn',
+                'constants_class': 'login_automation.constants.linkedin.ConstantsLinkedIn'
             }
         })
         

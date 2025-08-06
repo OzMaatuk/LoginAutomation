@@ -3,7 +3,7 @@ import time
 from typing import Optional
 from contextlib import contextmanager
 from playwright.sync_api import sync_playwright, Page, BrowserContext, Playwright
-from src.constants.constants import Constants
+from login_automation.constants.constants import Constants
 
 logger = logging.getLogger(__name__)
 

@@ -4,8 +4,8 @@ import importlib
 import logging
 from typing import Union
 from playwright.sync_api import Page
-from src.login.login import Login
-from src.constants.constants import Constants
+from login_automation.login.login import Login
+from login_automation.constants.constants import Constants
 
 
 logger = logging.getLogger(__name__)

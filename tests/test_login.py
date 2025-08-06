@@ -5,8 +5,8 @@ import pytest
 import pytest_mock
 import logging
 from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError
-from src.login.login import Login
-from src.constants.linkedin import ConstantsLinkedIn
+from login_automation.login.login import Login
+from login_automation.constants.linkedin import ConstantsLinkedIn
 
 logger = logging.getLogger(__name__)
 
