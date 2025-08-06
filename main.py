@@ -15,18 +15,27 @@ def main():
         configure_application_logging(app_config.log_level, app_config.log_file, app_config.logging_format)
 
         # Load user details
-
-        # Load job URLs
-
+        username = os.environ.get("USERNAME")
+        if not username:
+            username = config.get("user_info", "username", fallback="username")
+            if not username:
+                raise ValueError("USERNAME is not set in environment variables or config.ini.")
+    
+        password = os.environ.get("PASSWORD")
+        if not password:
+            password = config.get("user_info", "password", fallback="password")
+            if not password:
+                raise ValueError("PASSWORD is not set in environment variables or config.ini.")
 
         # Use context manager for driver
         with PlaywrightDriver(app_config.headless, app_config.timeout) as driver:
             if not driver.page:
                 raise Exception("Failed to initialize browser page")
                 
-            app = Login()
+            app = FactoryLogin.create_login('linkedin', driver.page)
 
             # Execute
+            app.login(username, password)
 
     except ConfigParserError as e:
         logger.error(f"Error reading configuration: {e}")
