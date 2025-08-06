@@ -1,4 +1,4 @@
-# file path: environment.yaml
+# file path: conda_recipe/environment.yaml
 
 name: login_automation
 channels:
@@ -6,3 +6,5 @@ channels:
 dependencies:
   - python
   - pip
+  - pip:
+  - -r file:requirements.txt
