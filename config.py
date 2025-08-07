@@ -31,19 +31,19 @@ class AppConfig:
             if self.password == "":
                 raise ValueError("PASSWORD is not set in environment variables or config.ini.")
 
-        site_type = cfg.get("general", "site_type", fallback=None)
+        platform = cfg.get("general", "platform", fallback=None)
         self.login_url = None
-        if not site_type:
-            raise ValueError("site_type is not set in config.ini.")
-        supported_sites = Constants.SUPPORTED_PLATFORMS.keys()
-        if site_type not in supported_sites:
-            # logger.warning(f"site_type in config.ini is not supported. supported sites are {supported_sites}.")
+        if not platform:
+            raise ValueError("platform is not set in config.ini.")
+        supported_platforms = Constants.SUPPORTED_PLATFORMS.keys()
+        if platform not in supported_platforms:
+            # logger.warning(f"platform in config.ini is not supported. supported sites are {supported_platforms}.")
             # logger.warning(f"try login to unsupported site.")
             self.login_url = cfg.get("general", "login_url", fallback=None)
             if not self.login_url:
-                raise ValueError("login_url is not configured in config.ini, it requiered due to not supported site_type.")
-        elif (site_type == "linkedin"):
+                raise ValueError("login_url is not configured in config.ini, it requiered due to not supported platform.")
+        elif (platform == "linkedin"):
             self.login_url = ConstantsLinkedIn.LOGIN_URL
             self.feed_url = ConstantsLinkedIn.FEED_URL
         else:
-            raise ValueError("login_url is not provided, you should set supported site_type, or provide login_url in config.ini")
+            raise ValueError("login_url is not provided, you should set supported platform, or provide login_url in config.ini")
