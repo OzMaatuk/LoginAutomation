@@ -26,6 +26,14 @@ class Constants():
         #     'login_class': LoginFacebook,
         #     'constants_class': ConstantsFacebook
         # },
+        'linkedin': {
+            'login_class': 'login_automation.login.linkedin.LoginLinkedIn',
+            'constants_class': 'login_automation.constants.linkedin.ConstantsLinkedIn'
+        },
+        'manual': {
+            'login_class': 'login_automation.login.manual.LoginManually',
+            'constants_class': 'types.NoneType'
+        }
     }
 
     # --- Locators ---
