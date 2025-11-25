@@ -13,6 +13,14 @@ class Login:
     def __init__(self, page: Page, constants: Constants):
         logger.info("Initializing Login instance")
         logger.debug(f"page: {page}, constants: {constants}")
+        if not page:
+            error_msg = "Page object is required"
+            logger.error(error_msg)
+            raise Exception(error_msg)
+        if not constants:
+            error_msg = "Constants object is required"
+            logger.error(error_msg)
+            raise Exception(error_msg)
         self.page = page
         self.constants = constants
 
