@@ -18,7 +18,8 @@ class FactoryLogin:
         """Create a login instance for the specified platform."""
         logger.info(f"Creating login instance for platform: {platform}")
         
-        if FactoryLogin.is_platform_supported(platform):
+        # If the platform is not supported raise a helpful error
+        if not FactoryLogin.is_platform_supported(platform):
             supported = ', '.join(FactoryLogin.get_supported_platforms())
             error_msg = f"Platform '{platform}' is not supported. Supported platforms: {supported}"
             logger.error(error_msg)
@@ -32,10 +33,17 @@ class FactoryLogin:
             constants_class = cls._import_class(platform_config['constants_class'])
             
             
-            # Use provided constants or create default ones
+            # Use provided constants or create default ones. Some platforms use NoneType
+            # (e.g. manual) as their constants class; handle that safely by leaving
+            # constants as None when the constants_class is not instantiable.
             if constants is None:
-                logger.debug(f"No constants provided, creating default {constants_class.__name__} instance")
-                constants = constants_class()
+                try:
+                    logger.debug(f"No constants provided, creating default {constants_class.__name__} instance")
+                    constants = constants_class()
+                except Exception:
+                    # If constants_class is types.NoneType or otherwise not callable
+                    # just keep constants as None (some Login implementations accept None)
+                    logger.debug("constants_class not instantiable, leaving constants as None")
             
             # Validate that constants are compatible
             if not isinstance(constants, constants_class):
