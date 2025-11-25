@@ -2,7 +2,7 @@
 
 import importlib
 import logging
-from typing import Union
+from typing import Optional
 from playwright.sync_api import Page
 from login_automation.login.login import Login
 from login_automation.constants.constants import Constants
@@ -14,7 +14,7 @@ class FactoryLogin:
     """Factory class for creating login instances based on platform type."""
     
     @classmethod
-    def create_login(cls, platform: str, page: Page, constants: Union[Constants, None] = None) -> Login:
+    def create_login(cls, platform: str, page: Page, constants: Optional[Constants]) -> Login:
         """Create a login instance for the specified platform."""
         logger.info(f"Creating login instance for platform: {platform}")
         
