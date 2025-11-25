@@ -1,0 +1,4 @@
+include README.md
+include LICENSE
+recursive-include login_automation *.py
+global-exclude __pycache__ *.pyc
