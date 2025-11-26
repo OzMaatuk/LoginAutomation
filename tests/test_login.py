@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 class TestLogin:
 
+    @pytest.mark.skip(reason="Requires valid credentials, skipping in CI")
     def test_successful_login(self, playwright_page_no_data: Page, username: str, password: str) -> None:
         """Tests successful login using pytest-mock."""
         logger.info("Testing successful login scenario")
