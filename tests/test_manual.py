@@ -3,7 +3,7 @@ import pytest
 from login_automation.login.manual import LoginManually
 
 
-class DummyPage:
+class DummyPage():
     def __init__(self):
         self.called = False
 
@@ -15,12 +15,12 @@ class DummyPage:
 def test_manual_login_calls_wait_for_event():
     page = DummyPage()
 
-    lm = LoginManually(page)
-    lm.login()
+    lm = LoginManually(page, None) # type: ignore
+    lm.login(page, None) # type: ignore
 
     assert page.called is True
 
 
 def test_manual_init_requires_page():
     with pytest.raises(Exception, match=r"Page object is required"):
-        LoginManually(None)
+        LoginManually(None, None) # type: ignore
