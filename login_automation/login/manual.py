@@ -5,8 +5,7 @@ from typing import Optional
 from playwright.sync_api import Page
 from login_automation.constants.constants import Constants
 from login_automation.login.login import Login
-
-
+from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError
 logger = logging.getLogger(__name__)
 
 class LoginManually(Login):
@@ -28,14 +27,15 @@ class LoginManually(Login):
             feed_url = self.constants.FEED_URL
             logger.debug(f"login_url: {login_url}, feed_url: {feed_url}")
             
-            try:
-                self.page.goto(login_url)
-                self.page.wait_for_url(login_url)
-                logger.info(f"Navigated to {login_url}")
-            except PlaywrightTimeoutError as e:
-                if feed_url in self.page.url:
-                    logger.info("Already logged in.")
-                    return
+            if login_url:
+                try:
+                    self.page.goto(login_url)
+                    self.page.wait_for_url(login_url)
+                    logger.info(f"Navigated to {login_url}")
+                except PlaywrightTimeoutError as e:
+                    if feed_url and feed_url in self.page.url:
+                        logger.info("Already logged in.")
+                        return
 
         logger.info("You got 2 minutes to log in manually...")
         self.page.wait_for_event("load", timeout=120000)
