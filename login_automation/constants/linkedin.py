@@ -6,12 +6,12 @@ class ConstantsLinkedIn(Constants):
 
     def __init__(self):
         super().__init__()
-        Constants.SUPPORTED_PLATFORMS.update({
-            'linkedin': {
-                'login_class': 'login_automation.login.linkedin.LoginLinkedIn',
-                'constants_class': 'login_automation.constants.linkedin.ConstantsLinkedIn'
-            }
-        })
+        # Constants.SUPPORTED_PLATFORMS.update({
+        #     'linkedin': {
+        #         'login_class': 'login_automation.login.linkedin.LoginLinkedIn',
+        #         'constants_class': 'login_automation.constants.linkedin.ConstantsLinkedIn'
+        #     }
+        # })
         
     # --- LinkedIn URLs ---
     BASE_URL = "https://www.linkedin.com"

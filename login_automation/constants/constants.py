@@ -29,6 +29,14 @@ class Constants():
         'manual': {
             'login_class': 'login_automation.login.manual.LoginManually',
             'constants_class': 'types.NoneType'
+        },
+        'indeed': {
+            'login_class': 'login_automation.login.indeed.LoginIndeed',
+            'constants_class': 'login_automation.constants.indeed.ConstantsIndeed'
+        },
+        'linkedin': {
+            'login_class': 'login_automation.login.linkedin.LoginLinkedIn',
+            'constants_class': 'login_automation.constants.linkedin.ConstantsLinkedIn'
         }
     }
 
