@@ -1,10 +1,11 @@
 # src/login/linkedin.py
 
 import logging
+from typing import Optional
 from playwright.sync_api import Page
 # from login_automation.login.login import Login
-from login_automation.constants.linkedin import ConstantsIndeed
-from login_automation.login.login import LoginManually
+from login_automation.constants.indeed import ConstantsIndeed
+from login_automation.login.manual import LoginManually
 
 logger = logging.getLogger(__name__)
 
